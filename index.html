@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#6B3418">
+<title>Demo Sweets, Tripoli</title>
+<meta name="description" content="Demo WhatsApp ordering menu: pick items, see USD and LBP prices, and send the order on WhatsApp.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%236B3418'/%3E%3Cpath d='M32 14l16 18-16 18-16-18z' fill='%23E0A03A'/%3E%3Ccircle cx='32' cy='32' r='5' fill='%236FA83A'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#FBF6EE;--surface:#FFFFFF;--ink:#2B1D14;--muted:#6B5A4C;--line:#EADFD0;--field:#D9CBB8;
+  --brand:#6B3418;--brand-ink:#FFF7EC;--accent:#2F7A55;--accent-soft:#E4F1E8;
+  --wa:#15803D;--wa-press:#116B33;--danger:#B42318;--tint:#F3E8D9;--note:#FFF1D6;--note-line:#F0DDB5;--note-ink:#5A4220;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Arabic","Noto Naskh Arabic",Tahoma,Arial,sans-serif;padding-bottom:100px;overflow-x:hidden}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:560px;margin:0 auto;padding-left:16px;padding-right:16px}
+.ltr{direction:ltr;unicode-bidi:isolate;display:inline-block}
+
+header.top{background:var(--brand);color:var(--brand-ink)}
+header.top .wrap{display:flex;align-items:center;gap:12px;padding-top:14px;padding-bottom:14px}
+.logo{width:48px;height:48px;flex:none}
+.brand{flex:1;min-width:0}
+h1{font-size:20px;line-height:1.25;margin:0}
+.city{margin:0;font-size:14px;opacity:.85}
+.lang{flex:none;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,247,236,.55);background:transparent;color:var(--brand-ink);font-size:14px;font-weight:600}
+
+.note{background:var(--note);border-bottom:1px solid var(--note-line);color:var(--note-ink);font-size:13px}
+.note .wrap{padding-top:8px;padding-bottom:8px}
+
+.rate{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:14px auto 2px;font-size:14px;color:var(--muted)}
+.rate input{width:104px;min-height:40px;padding:0 10px;border:1px solid var(--field);border-radius:10px;background:var(--surface);text-align:center;font-weight:700;color:var(--ink);direction:ltr}
+.rate .hint{font-size:12px}
+
+nav.cats{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav.cats .wrap{display:flex;gap:8px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:none}
+nav.cats .wrap::-webkit-scrollbar{display:none}
+.chip{flex:none;min-height:38px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:14px;font-weight:600;display:inline-flex;align-items:center;text-decoration:none;color:var(--ink);white-space:nowrap}
+
+section.cat{scroll-margin-top:64px;padding-top:10px}
+h2{font-size:17px;margin:8px 0 10px}
+.item{display:flex;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}
+.art{width:64px;height:64px;flex:none;border-radius:12px;background:var(--tint);overflow:hidden}
+.art svg{display:block;width:100%;height:100%}
+.body{flex:1;min-width:0;display:flex;flex-direction:column}
+.name{font-weight:700;font-size:16px;line-height:1.3;margin:0}
+.unit{font-weight:400;color:var(--muted);font-size:13px}
+.desc{font-size:13px;color:var(--muted);margin:2px 0 8px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto}
+.price b{display:block;font-size:16px;line-height:1.2}
+.price span{display:block;font-size:12px;color:var(--muted);white-space:nowrap}
+.add{min-height:40px;min-width:76px;padding:0 16px;border-radius:999px;border:0;background:var(--accent);color:#fff;font-weight:700;font-size:15px}
+.step{display:flex;align-items:center;gap:2px;background:var(--accent-soft);border-radius:999px;padding:2px;flex:none}
+.step button{width:40px;height:40px;border-radius:999px;border:0;background:var(--surface);color:var(--accent);font-size:22px;line-height:1;font-weight:700;padding:0}
+.step output{min-width:26px;text-align:center;font-weight:700}
+
+footer.foot{margin-top:24px;padding-top:16px;padding-bottom:16px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+footer.foot p{margin:0 0 8px}
+footer.foot a{color:var(--accent);font-weight:700}
+footer.foot .small{font-size:12px}
+
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:10;padding:10px 16px;padding-bottom:calc(10px + env(safe-area-inset-bottom));display:none}
+.bar.show{display:block}
+.bar button{display:flex;width:100%;max-width:528px;margin:0 auto;align-items:center;justify-content:space-between;gap:12px;min-height:54px;padding:0 18px;border:0;border-radius:14px;background:var(--brand);color:var(--brand-ink);font-weight:700;font-size:16px;box-shadow:0 4px 14px rgba(43,29,20,.22)}
+.bar .l{display:flex;align-items:center;gap:10px}
+.count{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:26px;padding:0 7px;border-radius:999px;background:var(--brand-ink);color:var(--brand);font-size:14px}
+
+.sheet{position:fixed;top:0;right:0;bottom:0;left:0;z-index:20;display:none}
+.sheet.open{display:block}
+.backdrop{position:absolute;top:0;right:0;bottom:0;left:0;background:rgba(30,20,12,.45)}
+.panel{position:absolute;left:0;right:0;bottom:0;max-width:560px;margin:0 auto;max-height:92vh;max-height:92dvh;display:flex;flex-direction:column;background:var(--bg);border-radius:18px 18px 0 0;animation:up .18s ease-out}
+@keyframes up{from{transform:translateY(24px);opacity:.6}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.panel{animation:none}}
+.ph{display:flex;align-items:center;justify-content:space-between;padding:8px 8px 8px 16px;border-bottom:1px solid var(--line)}
+[dir=rtl] .ph{padding:8px 16px 8px 8px}
+.ph h2{margin:0}
+.x{width:44px;height:44px;border:0;background:transparent;border-radius:999px;font-size:28px;line-height:1;color:var(--muted)}
+.pb{overflow-y:auto;padding:4px 16px 12px;flex:1;-webkit-overflow-scrolling:touch}
+.pf{padding:12px 16px;padding-bottom:calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:var(--surface)}
+.line{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.line .n{flex:1;min-width:0;font-weight:600;line-height:1.3}
+.line .n small{display:block;font-weight:400;color:var(--muted);font-size:13px}
+.line .t{font-weight:700;min-width:60px;text-align:end}
+.tot{display:flex;justify-content:space-between;align-items:baseline;margin:14px 0 0;font-weight:700;font-size:18px}
+.tot-l{text-align:end;color:var(--muted);font-size:14px;margin:0}
+.fee{font-size:13px;color:var(--muted);margin:6px 0 16px}
+.emptybox{text-align:center;padding:28px 0;color:var(--muted)}
+.ghost{min-height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--field);background:var(--surface);font-weight:600}
+.field{margin-bottom:14px}
+.field>label,.field>.lbl{display:block;font-size:14px;font-weight:600;margin-bottom:6px}
+.field input,.field textarea{width:100%;min-height:46px;padding:10px 12px;border:1px solid var(--field);border-radius:10px;background:var(--surface);font-size:16px}
+.field textarea{min-height:72px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:2px solid var(--accent);outline-offset:0;border-color:var(--accent)}
+.err{display:none;color:var(--danger);font-size:13px;margin:4px 0 0}
+.field.bad input{border-color:var(--danger)}
+.field.bad .err{display:block}
+.seg{display:flex;gap:8px}
+.seg button{flex:1;min-height:46px;padding:0 10px;border-radius:10px;border:1px solid var(--field);background:var(--surface);font-weight:600;font-size:15px}
+.seg button[aria-checked=true]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.send{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:54px;border:0;border-radius:14px;background:var(--wa);color:#fff;font-weight:700;font-size:17px}
+.send:active{background:var(--wa-press)}
+.send svg{width:22px;height:22px;flex:none}
+.sendhint{font-size:12px;color:var(--muted);text-align:center;margin:8px 0 0}
+.linkbtn{border:0;background:transparent;color:var(--muted);text-decoration:underline;font-size:13px;padding:10px 0;min-height:44px}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <svg class="logo" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="31" fill="#FFF7EC" opacity=".12"/><path d="M32 12l17 20-17 20-17-20z" fill="#E0A03A" stroke="#FFF7EC" stroke-width="2"/><circle cx="32" cy="32" r="5" fill="#6FA83A"/></svg>
+    <div class="brand">
+      <h1 data-t="shop">حلويات ديمو</h1>
+      <p class="city" data-t="city">طرابلس، لبنان</p>
+    </div>
+    <button class="lang" id="lang" type="button" data-t="lang">English</button>
+  </div>
+</header>
+
+<div class="note"><div class="wrap" data-t="note"></div></div>
+
+<div class="wrap">
+  <div class="rate">
+    <label for="rate" data-t="rateLabel"></label>
+    <input id="rate" type="text" inputmode="numeric" autocomplete="off">
+    <span data-t="rateUnit"></span>
+    <span class="hint" data-t="rateHint"></span>
+  </div>
+</div>
+
+<nav class="cats" aria-label="Menu sections"><div class="wrap" id="cats"></div></nav>
+
+<main class="wrap" id="menu"></main>
+
+<footer class="wrap foot">
+  <p data-t="pitch"></p>
+  <p><a id="pitchLink" href="https://wa.me/96179134480"><span data-t="pitchLink"></span> <span class="ltr">+961 79 134 480</span></a></p>
+  <p class="small" data-t="madeUp"></p>
+</footer>
+
+<div class="bar" id="bar" aria-live="polite">
+  <button type="button" id="openCart"><span class="l"><span class="count" id="barCount">0</span><span data-t="view"></span></span><span id="barTotal"></span></button>
+</div>
+
+<div class="sheet" id="sheet">
+  <div class="backdrop" data-act="close"></div>
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="ph">
+      <h2 id="sheetTitle" data-t="yourOrder" tabindex="-1"></h2>
+      <button class="x" type="button" data-act="close" id="closeBtn" data-ta="close">×</button>
+    </div>
+    <div class="pb">
+      <div id="lines"></div>
+      <div id="emptyBox" class="emptybox" hidden>
+        <p data-t="empty"></p>
+        <button class="ghost" type="button" data-act="close" data-t="browse"></button>
+      </div>
+      <div id="orderForm">
+        <div class="tot"><span data-t="total"></span><span id="totUsd"></span></div>
+        <p class="tot-l" id="totLbp"></p>
+        <p class="fee" data-t="fee"></p>
+
+        <div class="field" id="fName">
+          <label for="cName" data-t="name"></label>
+          <input id="cName" type="text" autocomplete="name" maxlength="60" aria-describedby="eName">
+          <p class="err" id="eName" data-t="nameErr"></p>
+        </div>
+        <div class="field">
+          <span class="lbl" id="typeLbl" data-t="type"></span>
+          <div class="seg" role="radiogroup" aria-labelledby="typeLbl">
+            <button type="button" role="radio" aria-checked="true" data-type="pickup" data-t="pickup"></button>
+            <button type="button" role="radio" aria-checked="false" data-type="delivery" data-t="delivery"></button>
+          </div>
+        </div>
+        <div class="field" id="fAddr" hidden>
+          <label for="cAddr" data-t="addr"></label>
+          <input id="cAddr" type="text" autocomplete="street-address" maxlength="160" data-tp="addrPh" aria-describedby="eAddr">
+          <p class="err" id="eAddr" data-t="addrErr"></p>
+        </div>
+        <div class="field">
+          <label for="cNotes" data-t="notes"></label>
+          <textarea id="cNotes" maxlength="300" data-tp="notesPh"></textarea>
+        </div>
+        <button class="linkbtn" type="button" data-act="clear" data-t="clear"></button>
+      </div>
+    </div>
+    <div class="pf" id="sheetFoot">
+      <button class="send" type="button" id="sendBtn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 10.5h7M8.5 13.5h4.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+        <span data-t="send"></span>
+      </button>
+      <p class="sendhint" data-t="sendHint"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var WA = '96179134480';
+  var DEFAULT_RATE = 89500;
+
+  var T = {
+    ar: {
+      shop: 'حلويات ديمو', city: 'طرابلس، لبنان', lang: 'English',
+      note: 'قائمة تجريبية: جرّب اطلب، والطلب بيوصل على واتساب أحمد لتشوف كيف بيشتغل.',
+      rateLabel: 'سعر الصرف اليوم: 1$ =', rateUnit: 'ل.ل', rateHint: '(فيك تغيّرو)',
+      add: 'أضف', view: 'شوف الطلب', yourOrder: 'طلبك', empty: 'بعد ما زدت شي عالطلب.', browse: 'ارجع عالقائمة',
+      total: 'المجموع', fee: 'إذا في رسم توصيل، المحل بيأكدلك ياه على واتساب.',
+      name: 'الاسم', nameErr: 'اكتب اسمك ليعرف المحل لمين الطلب.',
+      type: 'كيف بدك تاخد الطلب؟', pickup: 'استلام من المحل', delivery: 'توصيل',
+      addr: 'عنوان التوصيل', addrPh: 'المنطقة، الشارع، البناية، الطابق', addrErr: 'اكتب العنوان ليعرف المحل وين يوصّل.',
+      notes: 'ملاحظات (اختياري)', notesPh: 'مثلاً: بدنا ياه الساعة 6',
+      send: 'أرسل الطلب على واتساب', sendHint: 'رح ينفتح واتساب والطلب مكتوب، بس اكبس إرسال.',
+      close: 'سكّر', dec: 'نقّص واحد', inc: 'زيد واحد', clear: 'امسح الطلب',
+      pitch: 'بدك قائمة متل هيدي لمحلك؟ التجهيز مجاني وأول شهر مجاني، بعدها 10$ بالشهر، وفيك توقف ساعة ما بدك.',
+      pitchLink: 'احكي مع أحمد جزّار على واتساب', pitchMsg: 'مرحبا أحمد، شفت قائمة حلويات ديمو وبدي وحدة متلها لمحلي.',
+      madeUp: '"حلويات ديمو" محل وهمي للتجربة، والأسعار أمثلة.',
+      msgTitle: 'طلب جديد - حلويات ديمو، طرابلس', msgTotal: 'المجموع', msgLbp: 'يعني', msgAt: 'على سعر', msgPerUsd: '',
+      msgName: 'الاسم', msgPickup: 'استلام من المحل', msgDelivery: 'توصيل إلى', msgNotes: 'ملاحظات'
+    },
+    en: {
+      shop: 'Demo Sweets', city: 'Tripoli, Lebanon', lang: 'عربي',
+      note: "Demo menu: try ordering. The order goes to Ahmad's WhatsApp so you can see how it works.",
+      rateLabel: "Today's rate: $1 =", rateUnit: 'LBP', rateHint: '(you can change it)',
+      add: 'Add', view: 'View order', yourOrder: 'Your order', empty: 'Nothing in your order yet.', browse: 'Back to the menu',
+      total: 'Total', fee: 'If there is a delivery fee, the shop confirms it on WhatsApp.',
+      name: 'Your name', nameErr: 'Add your name so the shop knows whose order it is.',
+      type: 'How do you want it?', pickup: 'Pick up from the shop', delivery: 'Delivery',
+      addr: 'Delivery address', addrPh: 'Area, street, building, floor', addrErr: 'Add the address so the shop knows where to deliver.',
+      notes: 'Notes (optional)', notesPh: 'e.g. we need it at 6pm',
+      send: 'Send order on WhatsApp', sendHint: 'WhatsApp opens with the order typed. Just press send.',
+      close: 'Close', dec: 'Remove one', inc: 'Add one', clear: 'Clear order',
+      pitch: 'Want a menu like this for your shop? Free setup and the first month free, then $10/month, cancel anytime.',
+      pitchLink: 'Message Ahmad Jazzar on WhatsApp', pitchMsg: "Hi Ahmad, I saw the Demo Sweets menu and I'd like one for my shop.",
+      madeUp: 'Demo Sweets is a made-up shop; prices are examples.',
+      msgTitle: 'New order - Demo Sweets, Tripoli', msgTotal: 'Total', msgLbp: '=', msgAt: 'at', msgPerUsd: ' LBP/$',
+      msgName: 'Name', msgPickup: 'Pick up from the shop', msgDelivery: 'Deliver to', msgNotes: 'Notes'
+    }
+  };
+
+  var CATS = [
+    { id: 'arabic', ar: 'حلويات عربية', en: 'Arabic sweets', items: [
+      { id: 'knefeh', art: 'knefeh', usd: 3.5, ar: 'كنافة بالجبن', en: 'Knefeh bi jibn', uar: 'صحن', uen: 'plate', dar: 'جبنة سخنة وقطر', den: 'Warm cheese and syrup' },
+      { id: 'kaak', art: 'kaak', usd: 2.5, ar: 'كنافة بالكعكة', en: "Knefeh ka'ak", uar: 'قطعة', uen: 'each', dar: 'ترويقة طرابلس', den: 'The Tripoli breakfast' },
+      { id: 'halawet', art: 'halawet', usd: 4, ar: 'حلاوة الجبن', en: 'Halawet el jibn', uar: 'صحن', uen: 'plate', dar: 'محشية قشطة مع فستق', den: 'Filled with ashta, topped with pistachio' },
+      { id: 'znoud', art: 'znoud', usd: 1, ar: 'زنود الست', en: 'Znoud el sit', uar: 'قطعة', uen: 'each', dar: 'مقرمشة ومحشية قشطة', den: 'Crispy rolls filled with ashta' },
+      { id: 'baklava', art: 'baklava', usd: 18, ar: 'بقلاوة مشكّلة', en: 'Mixed baklava', uar: 'كيلو', uen: '1 kg', dar: 'فستق، كاجو وجوز', den: 'Pistachio, cashew and walnut' }
+    ]},
+    { id: 'maamoul', ar: 'معمول وكيك', en: 'Maamoul & cake', items: [
+      { id: 'mdate', art: 'maamoul', usd: 6, ar: 'معمول بالتمر', en: 'Date maamoul', uar: '12 قطعة', uen: '12 pcs', dar: 'عجينة سميد وتمر', den: 'Semolina dough with dates' },
+      { id: 'mpist', art: 'maamoulp', usd: 9, ar: 'معمول بالفستق', en: 'Pistachio maamoul', uar: '12 قطعة', uen: '12 pcs', dar: 'محشي فستق حلبي', den: 'Filled with pistachio' },
+      { id: 'sfouf', art: 'sfouf', usd: 0.75, ar: 'صفوف', en: 'Sfouf', uar: 'قطعة', uen: 'each', dar: 'كيك الكركم باللوز', den: 'Turmeric semolina cake with almonds' }
+    ]},
+    { id: 'ashta', ar: 'قشطة ومفروكة', en: 'Ashta & mafroukeh', items: [
+      { id: 'ashta', art: 'ashta', usd: 3, ar: 'قشطة بالعسل', en: 'Ashta with honey', uar: 'كاسة', uen: 'cup', dar: 'قشطة بلدية وعسل', den: 'Fresh clotted cream and honey' },
+      { id: 'mafroukeh', art: 'mafroukeh', usd: 5, ar: 'مفروكة بالفستق', en: 'Pistachio mafroukeh', uar: 'صحن', uen: 'plate', dar: 'مع قشطة', den: 'Topped with ashta' }
+    ]},
+    { id: 'drinks', ar: 'مشروبات', en: 'Drinks', items: [
+      { id: 'jallab', art: 'jallab', usd: 2, ar: 'جلاب', en: 'Jallab', uar: 'كباية', uen: 'glass', dar: 'مع صنوبر وزبيب', den: 'With pine nuts and raisins' },
+      { id: 'lemon', art: 'lemonade', usd: 1.5, ar: 'ليموناضة', en: 'Fresh lemonade', uar: 'كباية', uen: 'glass', dar: 'ليمون معصور', den: 'Freshly squeezed' },
+      { id: 'coffee', art: 'coffee', usd: 1, ar: 'قهوة عربية', en: 'Arabic coffee', uar: 'فنجان', uen: 'cup', dar: 'مع هال', den: 'With cardamom' }
+    ]}
+  ];
+
+  // Simple drawn placeholders (64x64), no photos.
+  var ART = {
+    knefeh: '<circle cx="32" cy="32" r="24" fill="#9A5B2A"/><circle cx="32" cy="32" r="20" fill="#E8892B"/><g fill="#6FA83A"><circle cx="25" cy="27" r="2"/><circle cx="37" cy="24" r="2"/><circle cx="39" cy="37" r="2"/><circle cx="27" cy="39" r="2"/><circle cx="32" cy="32" r="2"/></g>',
+    kaak: '<path d="M10 33c0-10 10-17 22-17s22 7 22 17z" fill="#D9A25F"/><rect x="10" y="32" width="44" height="7" rx="3" fill="#E8892B"/><path d="M10 39h44c0 5-10 9-22 9s-22-4-22-9z" fill="#C98E4E"/><g fill="#FFF3DC"><ellipse cx="22" cy="24" rx="1.8" ry="1.1"/><ellipse cx="30" cy="21" rx="1.8" ry="1.1"/><ellipse cx="38" cy="23" rx="1.8" ry="1.1"/><ellipse cx="45" cy="28" rx="1.8" ry="1.1"/><ellipse cx="18" cy="29" rx="1.8" ry="1.1"/><ellipse cx="33" cy="27" rx="1.8" ry="1.1"/></g>',
+    halawet: '<circle cx="32" cy="32" r="24" fill="#fff" stroke="#E4D6C3" stroke-width="2"/><g fill="#F6EEDD" stroke="#D8C7A8" stroke-width="1.5"><rect x="16" y="22" width="32" height="8" rx="4"/><rect x="16" y="34" width="32" height="8" rx="4"/></g><g fill="#6FA83A"><circle cx="22" cy="26" r="1.7"/><circle cx="32" cy="26" r="1.7"/><circle cx="42" cy="26" r="1.7"/><circle cx="27" cy="38" r="1.7"/><circle cx="37" cy="38" r="1.7"/></g>',
+    znoud: '<g fill="#E0A03A" stroke="#B87A22" stroke-width="1.5"><rect x="12" y="15" width="40" height="10" rx="5"/><rect x="12" y="28" width="40" height="10" rx="5"/><rect x="12" y="41" width="40" height="10" rx="5"/></g><g fill="#FFF6E6"><circle cx="17" cy="20" r="3"/><circle cx="17" cy="33" r="3"/><circle cx="17" cy="46" r="3"/></g>',
+    baklava: '<g fill="#D99A3E" stroke="#A8711F" stroke-width="1.5"><path d="M20 12l10 11-10 11-10-11z"/><path d="M44 12l10 11-10 11-10-11z"/><path d="M32 29l10 11-10 11-10-11z"/></g><g fill="#6FA83A"><circle cx="20" cy="23" r="2.5"/><circle cx="44" cy="23" r="2.5"/><circle cx="32" cy="40" r="2.5"/></g>',
+    maamoul: '<g fill="#E9CFA0" stroke="#C9A56B" stroke-width="1.5"><path d="M20 32a12 12 0 0 1 24 0z"/><path d="M8 46a12 12 0 0 1 24 0z"/><path d="M32 46a12 12 0 0 1 24 0z"/></g><g stroke="#C9A56B" stroke-width="1.2" stroke-linecap="round"><path d="M14 41l2 2M20 39v3M26 41l-2 2M38 41l2 2M44 39v3M50 41l-2 2M26 27l2 2M32 25v3M38 27l-2 2"/></g>',
+    maamoulp: '<g fill="#EFD9B0" stroke="#C9A56B" stroke-width="1.5"><path d="M20 32a12 12 0 0 1 24 0z"/><path d="M8 46a12 12 0 0 1 24 0z"/><path d="M32 46a12 12 0 0 1 24 0z"/></g><g fill="#6FA83A"><circle cx="32" cy="25" r="2.5"/><circle cx="20" cy="39" r="2.5"/><circle cx="44" cy="39" r="2.5"/></g>',
+    sfouf: '<g fill="#F2C230" stroke="#C99A12" stroke-width="1.5"><rect x="11" y="13" width="19" height="19" rx="3"/><rect x="34" y="13" width="19" height="19" rx="3"/><rect x="11" y="35" width="19" height="19" rx="3"/><rect x="34" y="35" width="19" height="19" rx="3"/></g><g fill="#FFF3D6"><ellipse cx="20.5" cy="22.5" rx="3.2" ry="2"/><ellipse cx="43.5" cy="22.5" rx="3.2" ry="2"/><ellipse cx="20.5" cy="44.5" rx="3.2" ry="2"/><ellipse cx="43.5" cy="44.5" rx="3.2" ry="2"/></g>',
+    ashta: '<path d="M16 24h32l-4 26a4 4 0 0 1-4 3H24a4 4 0 0 1-4-3z" fill="#fff" stroke="#D8C7A8" stroke-width="2"/><ellipse cx="32" cy="24" rx="16" ry="5" fill="#FFFDF7" stroke="#D8C7A8" stroke-width="2"/><path d="M21 24c4 3 8-2 12 1s7 0 10-1" stroke="#E6A817" stroke-width="3" fill="none" stroke-linecap="round"/>',
+    mafroukeh: '<path d="M10 34h44A22 16 0 0 1 10 34z" fill="#fff" stroke="#D8C7A8" stroke-width="2"/><path d="M14 34c2-10 10-14 18-14s16 4 18 14z" fill="#9BBF5A"/><ellipse cx="32" cy="26" rx="8" ry="3" fill="#FFFDF7"/>',
+    jallab: '<path d="M20 14h24l-3 38a3 3 0 0 1-3 3H26a3 3 0 0 1-3-3z" fill="#6D1F2B"/><path d="M20 14h24l-.6 7H20.6z" fill="#F4EBDD"/><g fill="#C9A56B"><ellipse cx="27" cy="17" rx="2" ry="1.2"/><ellipse cx="33" cy="18" rx="2" ry="1.2"/><ellipse cx="38" cy="16.5" rx="2" ry="1.2"/></g><circle cx="30" cy="28" r="1.6" fill="#3A0F16"/><circle cx="36" cy="33" r="1.6" fill="#3A0F16"/>',
+    lemonade: '<path d="M20 16h24l-3 36a3 3 0 0 1-3 3H26a3 3 0 0 1-3-3z" fill="#F6E27A" stroke="#D9BE3A" stroke-width="1.5"/><circle cx="44" cy="17" r="8" fill="#F9D923" stroke="#E0B500" stroke-width="2"/><path d="M44 10v14M37 17h14M39 12l10 10M49 12L39 22" stroke="#FFF6B0" stroke-width="1"/>',
+    coffee: '<ellipse cx="30" cy="50" rx="17" ry="3.5" fill="#E7DCCB"/><path d="M17 28h26v8a13 13 0 0 1-26 0z" fill="#fff" stroke="#BFA888" stroke-width="2"/><ellipse cx="30" cy="28" rx="13" ry="3.5" fill="#6B4226"/><path d="M43 30h3a4 4 0 0 1 0 8h-3" stroke="#BFA888" stroke-width="2" fill="none"/><path d="M26 21c0-3 3-3 3-6M33 21c0-3 3-3 3-6" stroke="#BFA888" stroke-width="1.5" fill="none" stroke-linecap="round"/>'
+  };
+
+  var ITEMS = {};
+  CATS.forEach(function (c) { c.items.forEach(function (it) { ITEMS[it.id] = it; }); });
+
+  function load(k, d) { try { var v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } }
+  function save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+
+  var qLang = (location.search.match(/[?&]lang=(ar|en)/) || [])[1];
+  var lang = qLang || load('ds_lang', 'ar');
+  if (!T[lang]) lang = 'ar';
+  var rate = load('ds_rate', DEFAULT_RATE);
+  if (!(rate >= 1000 && rate <= 10000000)) rate = DEFAULT_RATE;
+  var cart = load('ds_cart', {});
+  Object.keys(cart).forEach(function (id) { if (!ITEMS[id] || !(cart[id] > 0)) delete cart[id]; });
+  var orderType = 'pickup';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var menuEl = $('menu'), catsEl = $('cats'), rateEl = $('rate'), bar = $('bar'), sheet = $('sheet');
+  var nameEl = $('cName'), addrEl = $('cAddr'), notesEl = $('cNotes');
+  nameEl.value = load('ds_name', '');
+
+  function L(k) { return T[lang][k]; }
+  function group(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+  function usd(x) {
+    var s = (Math.round(x * 100) / 100).toFixed(2).replace(/\.00$/, '');
+    return lang === 'ar' ? s + '$' : '$' + s;
+  }
+  function lbpNum(x) { return Math.round(x * rate / 1000) * 1000; }
+  function lbp(x) { var s = group(lbpNum(x)); return lang === 'ar' ? s + ' ل.ل' : s + ' LBP'; }
+  function qty(id) { return cart[id] || 0; }
+  function totals() {
+    var n = 0, t = 0;
+    Object.keys(cart).forEach(function (id) { n += cart[id]; t += cart[id] * ITEMS[id].usd; });
+    return { n: n, usd: t };
+  }
+
+  function ctlHTML(it) {
+    var q = qty(it.id), nm = it[lang];
+    if (!q) return '<button class="add" type="button" data-act="inc" data-id="' + it.id + '" aria-label="' + L('add') + ': ' + nm + '">' + L('add') + '</button>';
+    return '<div class="step"><button type="button" data-act="dec" data-id="' + it.id + '" aria-label="' + L('dec') + ': ' + nm + '">−</button>' +
+      '<output aria-live="polite">' + q + '</output>' +
+      '<button type="button" data-act="inc" data-id="' + it.id + '" aria-label="' + L('inc') + ': ' + nm + '">+</button></div>';
+  }
+
+  function renderMenu() {
+    catsEl.innerHTML = CATS.map(function (c) { return '<a class="chip" href="#cat-' + c.id + '">' + c[lang] + '</a>'; }).join('');
+    menuEl.innerHTML = CATS.map(function (c) {
+      return '<section class="cat" id="cat-' + c.id + '"><h2>' + c[lang] + '</h2>' + c.items.map(function (it) {
+        return '<article class="item" data-id="' + it.id + '">' +
+          '<div class="art"><svg viewBox="0 0 64 64" aria-hidden="true">' + ART[it.art] + '</svg></div>' +
+          '<div class="body"><h3 class="name">' + it[lang] + ' <span class="unit">· ' + it[lang === 'ar' ? 'uar' : 'uen'] + '</span></h3>' +
+          '<p class="desc">' + it[lang === 'ar' ? 'dar' : 'den'] + '</p>' +
+          '<div class="row"><div class="price"><b>' + usd(it.usd) + '</b><span>' + lbp(it.usd) + '</span></div>' +
+          '<div class="ctl">' + ctlHTML(it) + '</div></div></div></article>';
+      }).join('') + '</section>';
+    }).join('');
+  }
+
+  function renderBar() {
+    var t = totals();
+    bar.classList.toggle('show', t.n > 0);
+    $('barCount').textContent = t.n;
+    $('barTotal').textContent = usd(t.usd);
+  }
+
+  function renderLines() {
+    var ids = Object.keys(cart), t = totals();
+    $('lines').innerHTML = ids.map(function (id) {
+      var it = ITEMS[id];
+      return '<div class="line"><div class="n">' + it[lang] + '<small>' + usd(it.usd) + ' · ' + it[lang === 'ar' ? 'uar' : 'uen'] + '</small></div>' +
+        ctlHTML(it) + '<div class="t">' + usd(it.usd * cart[id]) + '</div></div>';
+    }).join('');
+    var empty = ids.length === 0;
+    $('emptyBox').hidden = !empty;
+    $('orderForm').hidden = empty;
+    $('sheetFoot').hidden = empty;
+    $('totUsd').textContent = usd(t.usd);
+    $('totLbp').textContent = lbp(t.usd);
+  }
+
+  function applyText() {
+    var html = document.documentElement;
+    html.lang = lang;
+    html.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.title = lang === 'ar' ? 'حلويات ديمو، طرابلس' : 'Demo Sweets, Tripoli';
+    Array.prototype.forEach.call(document.querySelectorAll('[data-t]'), function (el) { el.textContent = L(el.getAttribute('data-t')); });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-tp]'), function (el) { el.placeholder = L(el.getAttribute('data-tp')); });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-ta]'), function (el) { el.setAttribute('aria-label', L(el.getAttribute('data-ta'))); });
+    $('pitchLink').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(L('pitchMsg'));
+    rateEl.value = group(rate);
+  }
+
+  function renderAll() { applyText(); renderMenu(); renderBar(); if (sheetOpen) renderLines(); }
+
+  function setQty(id, q) {
+    if (q > 0) cart[id] = Math.min(q, 99); else delete cart[id];
+    save('ds_cart', cart);
+    var ctl = menuEl.querySelector('.item[data-id="' + id + '"] .ctl');
+    if (ctl) ctl.innerHTML = ctlHTML(ITEMS[id]);
+    renderBar();
+    if (sheetOpen) renderLines();
+  }
+
+  // Order sheet, with Android back button support.
+  var sheetOpen = false;
+  function openSheet() {
+    if (sheetOpen) return;
+    sheetOpen = true;
+    renderLines();
+    sheet.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    try { history.pushState({ sheet: 1 }, ''); } catch (e) {}
+    $('sheetTitle').focus();
+  }
+  function hideSheet() {
+    sheetOpen = false;
+    sheet.classList.remove('open');
+    document.body.style.overflow = '';
+    if (bar.classList.contains('show')) $('openCart').focus();
+  }
+  function closeSheet() {
+    if (history.state && history.state.sheet) history.back(); else hideSheet();
+  }
+  window.addEventListener('popstate', function () { if (sheetOpen) hideSheet(); });
+  if (history.state && history.state.sheet) { try { history.replaceState(null, ''); } catch (e) {} }
+
+  function setType(t) {
+    orderType = t;
+    Array.prototype.forEach.call(document.querySelectorAll('[data-type]'), function (b) {
+      b.setAttribute('aria-checked', b.getAttribute('data-type') === t ? 'true' : 'false');
+    });
+    $('fAddr').hidden = t !== 'delivery';
+  }
+
+  function buildMessage() {
+    var lines = ['*' + L('msgTitle') + '*', ''], t = totals();
+    Object.keys(cart).forEach(function (id) {
+      var it = ITEMS[id];
+      lines.push('• ' + cart[id] + ' × ' + it[lang] + ' (' + it[lang === 'ar' ? 'uar' : 'uen'] + ') — ' + usd(it.usd * cart[id]));
+    });
+    lines.push('');
+    lines.push('*' + L('msgTotal') + ': ' + usd(t.usd) + '*');
+    lines.push('(' + L('msgLbp') + ' ' + lbp(t.usd) + ' ' + L('msgAt') + ' ' + group(rate) + L('msgPerUsd') + ')');
+    lines.push('');
+    lines.push(L('msgName') + ': ' + nameEl.value.trim());
+    lines.push(orderType === 'delivery' ? L('msgDelivery') + ': ' + addrEl.value.trim() : L('msgPickup'));
+    var notes = notesEl.value.trim();
+    if (notes) lines.push(L('msgNotes') + ': ' + notes);
+    return lines.join('\n');
+  }
+
+  function send() {
+    var bad = null;
+    if (!nameEl.value.trim()) { $('fName').classList.add('bad'); bad = bad || nameEl; }
+    if (orderType === 'delivery' && !addrEl.value.trim()) { $('fAddr').classList.add('bad'); bad = bad || addrEl; }
+    if (bad) { bad.focus(); return; }
+    save('ds_name', nameEl.value.trim());
+    location.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(buildMessage());
+  }
+
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-act],[data-type]');
+    if (!b) return;
+    if (b.hasAttribute('data-type')) { setType(b.getAttribute('data-type')); return; }
+    var act = b.getAttribute('data-act'), id = b.getAttribute('data-id');
+    if (act === 'inc') setQty(id, qty(id) + 1);
+    else if (act === 'dec') setQty(id, qty(id) - 1);
+    else if (act === 'close') closeSheet();
+    else if (act === 'clear') { cart = {}; save('ds_cart', cart); renderMenu(); renderBar(); renderLines(); }
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && sheetOpen) closeSheet(); });
+  $('openCart').addEventListener('click', openSheet);
+  $('sendBtn').addEventListener('click', send);
+  $('lang').addEventListener('click', function () { lang = lang === 'ar' ? 'en' : 'ar'; save('ds_lang', lang); renderAll(); });
+  [nameEl, addrEl].forEach(function (el) {
+    el.addEventListener('input', function () { el.parentNode.classList.remove('bad'); });
+  });
+
+  rateEl.addEventListener('focus', function () { rateEl.select(); });
+  rateEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') rateEl.blur(); });
+  rateEl.addEventListener('change', function () {
+    var n = parseInt(rateEl.value.replace(/\D/g, ''), 10);
+    if (n >= 1000 && n <= 10000000) { rate = n; save('ds_rate', rate); }
+    rateEl.value = group(rate);
+    renderMenu(); renderBar(); if (sheetOpen) renderLines();
+  });
+
+  renderAll();
+})();
+</script>
+</body>
+</html>
