@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -394,8 +394,8 @@ section.cat{scroll-margin-top:62px;padding-top:20px}
   function save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
 
   var qLang = (location.search.match(/[?&]lang=(ar|en)/) || [])[1];
-  var lang = qLang || load('ds_lang', 'ar');
-  if (!T[lang]) lang = 'ar';
+  var lang = qLang || load('ds_lang', 'en');
+  if (!T[lang]) lang = 'en';
   var rate = load('ds_rate', DEFAULT_RATE);
   if (!(rate >= 1000 && rate <= 10000000)) rate = DEFAULT_RATE;
   var cart = load('ds_cart', {});
