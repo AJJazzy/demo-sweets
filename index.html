@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#23201B">
+<meta name="theme-color" content="#082219">
 <title>Demo Sweets, Tripoli</title>
 <meta name="description" content="Demo WhatsApp ordering menu: pick sweets, see prices in USD and LBP, and send the order on WhatsApp.">
 <meta property="og:type" content="website">
@@ -15,173 +15,198 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Demo Sweets, a WhatsApp ordering menu with prices in dollars and lira">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='12' fill='%231E5A44'/%3E%3Crect x='14' y='14' width='20' height='20' rx='2' fill='%23F3C97A'/%3E%3Crect x='14' y='14' width='20' height='20' rx='2' fill='%23F3C97A' transform='rotate(45 24 24)'/%3E%3Ccircle cx='24' cy='24' r='4' fill='%231E5A44'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='12' fill='%230C2E25'/%3E%3Crect x='14' y='14' width='20' height='20' rx='2' fill='%23E6B25A'/%3E%3Crect x='14' y='14' width='20' height='20' rx='2' fill='%23E6B25A' transform='rotate(45 24 24)'/%3E%3Ccircle cx='24' cy='24' r='4' fill='%230C2E25'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=El+Messiri:wght@600;700&family=Rubik:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
 <style>
+/* A Tripoli sweets box: deep pistachio-green page, cream paper cards, syrup-gold accents,
+   Mamluk arches as the frame for the food, ruqaa calligraphy like the shop signs. */
 :root{
-  /* Surfaces: L0 canvas, L1 cards and sheets. */
-  --bg:#FBF7F1;--surface:#FFFFFF;
-  --ink:#23201B;--muted:#6B6055;--line:#E8DED0;--field:#998A78;
-  /* One accent hue for everything you can tap. */
-  --accent:#1E5A44;--accent-dk:#16382B;--accent-soft:#E6F0EA;
-  --gold-ink:#8A5A12;--gold-hi:#F3C97A;--danger:#B42318;
-  --shadow-2:0 4px 12px rgba(35,32,27,.06);
-  --shadow-3:0 8px 24px rgba(35,32,27,.07);
+  --night:#0C2E25;--night-2:#123D30;--night-3:#082219;
+  --cream:#F6EBD7;--cream-2:#BFCFC3;--edge:rgba(246,235,215,.14);
+  --box:#FBF3E4;--paper:#FFFCF6;--ink:#23190F;--muted:#6B5C48;--line:#E7D8BF;--field:#A08C70;
+  --syrup:#E6B25A;--syrup-2:#F3D08E;--pist:#A8C66C;
+  --rose-bg:#F8DCDF;--rose:#8E2635;
+  --wa:#0F7F43;--wa-dk:#0B6334;--danger:#B42318;
+  --display:"El Messiri",Georgia,"Times New Roman",serif;
+  --sign:"Aref Ruqaa","Noto Naskh Arabic","Geeza Pro",serif;
+  --body:Rubik,system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Arabic",Tahoma,Arial,sans-serif;
   --enter:cubic-bezier(.16,1,.3,1);--exit:cubic-bezier(.7,0,.84,0);
-  color-scheme:light;
+  --stars:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'%3E%3Cg fill='none' stroke='%23E6B25A' stroke-opacity='.13' stroke-width='1.2'%3E%3Crect x='13' y='13' width='18' height='18'/%3E%3Crect x='13' y='13' width='18' height='18' transform='rotate(45 22 22)'/%3E%3C/g%3E%3C/svg%3E");
+  color-scheme:dark;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 Rubik,system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Arabic",Tahoma,Arial,sans-serif;padding-bottom:96px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;background:var(--night)}
+body{margin:0;background:var(--night);color:var(--cream);font:400 16px/1.55 var(--body);padding-bottom:104px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 button,input,textarea{font:inherit;color:inherit}
 button{cursor:pointer;-webkit-tap-highlight-color:transparent;border:0;background:none;padding:0}
 a{color:inherit;-webkit-tap-highlight-color:transparent}
 p{margin:0}
-h1,h2,h3{margin:0;font-weight:600;line-height:1.25}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-/* Headings that take focus programmatically when a sheet opens. */
+h1,h2,h3{margin:0;font-family:var(--display);font-weight:700;line-height:1.15;text-wrap:balance}
+:focus-visible{outline:2px solid var(--syrup);outline-offset:2px}
+.item :focus-visible,.rate :focus-visible,.sheet :focus-visible,.pitch :focus-visible{outline-color:var(--night)}
 [tabindex="-1"]:focus{outline:none}
 svg{display:block}
 [hidden]{display:none!important}
-.wrap{max-width:600px;margin:0 auto;padding-left:16px;padding-right:16px}
+.wrap{max-width:600px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ltr{direction:ltr;unicode-bidi:isolate;display:inline-block}
+.sign-ar{font-family:var(--sign)}
+.sign-en{font-family:var(--display)}
 
 /* Demo strip */
-.strip{background:var(--ink);color:#EFE7DA;font-size:14px;line-height:1.4}
+.strip{background:var(--night-3);color:var(--cream-2);font-size:14px;line-height:1.4;border-bottom:1px solid var(--edge)}
 .strip-in{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px}
-.strip b{color:var(--gold-hi);font-weight:600}
-.strip a{display:inline-flex;align-items:center;min-height:44px;color:#fff;font-weight:500;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
-.strip a:focus-visible{outline-color:#fff}
+.strip b{color:var(--syrup);font-weight:600}
+.strip a{display:inline-flex;align-items:center;min-height:44px;color:var(--cream);font-weight:500;text-decoration:underline;text-decoration-color:var(--syrup);text-underline-offset:4px;white-space:nowrap}
 
-/* Shop header */
-.shop{padding-top:24px}
-.shop-row{display:flex;align-items:center;gap:12px}
-.logo{flex:none;width:56px;height:56px;border-radius:16px;background:var(--accent-dk);display:flex;align-items:center;justify-content:center}
-.logo svg{width:40px;height:40px}
-.shop-txt{flex:1;min-width:0}
-h1{font-size:1.44rem;line-height:1.2}
-.tag{margin-top:4px;color:var(--muted);font-size:14px;line-height:1.5}
-.lang{flex:none;align-self:flex-start;display:inline-flex;align-items:center;height:44px;padding:0 16px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:14px;font-weight:500}
-.meta{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:12px;color:var(--muted);font-size:14px;line-height:1.5}
+/* Hero: the shop sign */
+.hero{position:relative;background:var(--night-2) var(--stars);overflow:hidden}
+.hero-in{position:relative;padding-top:16px;padding-bottom:40px}
+.hero-top{display:flex;align-items:center;gap:12px}
+.mark{width:36px;height:36px;flex:none;color:var(--syrup)}
+.city{flex:1;min-width:0;color:var(--syrup);font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase}
+[lang=ar] .city,[lang=ar] .eyebrow{letter-spacing:0;font-size:14px}
+.lang{flex:none;display:inline-flex;align-items:center;height:44px;padding:0 16px;border-radius:999px;border:1px solid rgba(230,178,90,.55);color:var(--cream);font-size:14px;font-weight:500}
+.hero-main{display:flex;align-items:flex-end;gap:12px;margin-top:20px}
+.hero-txt{flex:1;min-width:0}
+h1{font-size:clamp(2.6rem,11vw,3.6rem);line-height:.98;color:var(--cream);letter-spacing:-.01em}
+h1 .two{display:block;color:var(--syrup)}
+[lang=ar] h1{font-family:var(--sign);font-size:clamp(2.8rem,12vw,3.8rem);line-height:1.1;letter-spacing:0}
+.alt{display:block;margin-top:8px;font-size:28px;line-height:1.2;color:var(--syrup-2)}
+[lang=ar] .alt{font-family:var(--display);font-size:20px;letter-spacing:.04em;color:var(--cream-2)}
+.arch{flex:none;width:132px;height:168px;margin-bottom:-8px;filter:drop-shadow(0 12px 18px rgba(0,0,0,.28))}
+.arch svg{width:100%;height:100%}
+.sub{margin-top:20px;max-width:34ch;color:var(--cream);font-size:16px;line-height:1.5}
+.meta{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:12px;color:var(--cream-2);font-size:14px}
 .mi{display:inline-flex;align-items:center;gap:8px}
-.mi svg{width:16px;height:16px;flex:none}
+.mi svg{width:16px;height:16px;flex:none;color:var(--syrup)}
+.arcade{position:absolute;left:0;right:0;bottom:-1px;height:16px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='16' viewBox='0 0 24 16'%3E%3Cpath d='M3 16V10a9 9 0 0 1 18 0v6zM0 14h24v2H0z' fill='%230C2E25'/%3E%3C/svg%3E") repeat-x left bottom}
 
-/* Exchange rate: edited in place, display and input share one box */
-.rate{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:16px}
-.rate-lbl{font-size:14px;color:var(--muted)}
-.rate-box{position:relative;display:grid;grid-template-columns:minmax(0,1fr);width:216px}
-.rate-view,.rate-edit{grid-area:1/1;min-width:0;display:flex;align-items:center;gap:8px;height:44px;padding:0 12px;border:1px solid var(--field);border-radius:12px;background:var(--surface);font-size:16px;font-weight:500;white-space:nowrap}
+/* Exchange rate ticket, edited in place */
+.rate{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:16px;padding:12px 12px 12px 16px;background:var(--box);color:var(--ink);border-radius:16px}
+[dir=rtl] .rate{padding:12px 16px 12px 12px}
+.rate-lbl{flex:1 1 104px;min-width:0;display:flex;flex-direction:column;font-size:12px;line-height:1.4;color:var(--muted)}
+.rate-lbl b{font-family:var(--display);font-size:17px;font-weight:700;color:var(--ink)}
+.rate-box{position:relative;display:grid;grid-template-columns:minmax(0,1fr);width:188px;flex:none}
+.rate-view,.rate-edit{grid-area:1/1;min-width:0;display:flex;align-items:center;gap:8px;height:44px;padding:0 12px;border:1px solid var(--field);border-radius:12px;background:var(--paper);font-size:15px;font-weight:600;white-space:nowrap}
 .rate-view{justify-content:space-between;width:100%}
-.rate-view svg{width:16px;height:16px;flex:none;color:var(--accent)}
-.rate-edit{margin:0;visibility:hidden;border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
-.rate-edit input{flex:1;width:0;min-width:0;height:32px;padding:0 4px;border:0;border-radius:8px;background:var(--accent-soft);font-weight:600;text-align:center;direction:ltr}
+.rate-view svg{width:16px;height:16px;flex:none;color:var(--night)}
+.rate-edit{margin:0;visibility:hidden;border-color:var(--night);box-shadow:0 0 0 1px var(--night)}
+.rate-edit input{flex:1;width:0;min-width:0;height:32px;padding:0 4px;border:0;border-radius:8px;background:#EDE3CF;font-weight:600;text-align:center;direction:ltr}
 .rate-edit input:focus{outline:none}
 .rate-box.editing .rate-view{visibility:hidden}
 .rate-box.editing .rate-edit{visibility:visible}
 .rate-box.bad .rate-edit{border-color:var(--danger);box-shadow:0 0 0 1px var(--danger)}
-.rate-err{position:absolute;top:100%;inset-inline-end:0;margin-top:4px;font-size:12px;line-height:1.4;color:var(--danger);white-space:nowrap}
+.rate-err{position:absolute;top:100%;inset-inline-end:0;margin-top:4px;padding:2px 8px;border-radius:6px;background:var(--box);font-size:12px;line-height:1.4;color:var(--danger);white-space:nowrap;z-index:2}
 
 /* Category tabs */
-nav.cats{position:sticky;top:0;z-index:10;margin-top:24px;background:var(--bg);border-bottom:1px solid var(--line)}
-nav.cats .wrap{display:flex;gap:4px;overflow-x:auto;padding-left:4px;padding-right:4px;scrollbar-width:none}
+nav.cats{position:sticky;top:0;z-index:10;margin-top:20px;background:var(--night);border-bottom:1px solid var(--edge)}
+nav.cats .wrap{display:flex;gap:8px;overflow-x:auto;padding-top:8px;padding-bottom:8px;scrollbar-width:none}
 nav.cats .wrap::-webkit-scrollbar{display:none}
-.tab{flex:none;display:inline-flex;align-items:center;height:48px;padding:0 12px;margin-bottom:-1px;border-bottom:2px solid transparent;color:var(--muted);font-size:14px;font-weight:500;text-decoration:none;white-space:nowrap;transition:color 150ms,border-color 150ms}
-.tab.on{color:var(--accent);border-bottom-color:var(--accent)}
-.tab:focus-visible{outline-offset:-2px}
+.tab{flex:none;display:inline-flex;align-items:center;height:44px;padding:0 16px;border-radius:999px;color:var(--cream-2);font-size:15px;font-weight:500;text-decoration:none;white-space:nowrap;transition:background-color 150ms,color 150ms}
+.tab.on{background:var(--syrup);color:var(--night-3);font-weight:600}
 
 /* Menu */
-section.cat{scroll-margin-top:56px;padding-top:24px}
-.cat-h{display:flex;align-items:baseline;gap:8px;margin-bottom:12px}
-.cat-h h2{font-size:1.2rem}
-.cat-h span{font-size:14px;color:var(--muted)}
+section.cat{scroll-margin-top:64px;padding-top:32px}
+.cat-h{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px}
+.cat-h h2{font-size:1.75rem;color:var(--cream)}
+.orn{font-size:24px;line-height:1.2;color:var(--syrup)}
+[lang=ar] .orn{font-family:var(--display);font-size:16px;letter-spacing:.04em;color:var(--cream-2)}
+.cat-n{display:flex;align-items:center;gap:8px;margin:4px 0 16px;color:var(--cream-2);font-size:14px}
+.cat-n::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(230,178,90,.45),transparent)}
+[dir=rtl] .cat-n::after{background:linear-gradient(270deg,rgba(230,178,90,.45),transparent)}
 .list{display:flex;flex-direction:column;gap:12px}
-.item{display:flex;gap:16px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.item{display:flex;gap:16px;padding:16px;background:var(--box);color:var(--ink);border-radius:22px}
 .info{flex:1;min-width:0;display:flex;flex-direction:column}
-.hot{display:inline-flex;align-items:center;gap:4px;margin-bottom:4px;color:var(--gold-ink);font-size:12px;font-weight:500;line-height:1.4}
+.hot{align-self:flex-start;display:inline-flex;align-items:center;gap:4px;height:24px;margin-bottom:8px;padding:0 8px;border-radius:999px;background:var(--rose-bg);color:var(--rose);font-size:12px;font-weight:600}
 .hot svg{width:12px;height:12px}
-.name{font-size:16px}
+.name{font-size:1.2rem;font-weight:700;line-height:1.2}
 .desc{margin-top:4px;color:var(--muted);font-size:14px;line-height:1.5}
 .price{margin-top:auto;padding-top:12px;display:flex;flex-wrap:wrap;align-items:baseline;gap:0 4px}
-.price b{font-size:16px;font-weight:600}
+.price b{font-family:var(--display);font-size:1.35rem;font-weight:700;color:var(--night)}
 .per,.lbp{color:var(--muted);font-size:14px;line-height:1.5}
-.lbp{white-space:nowrap}
-.media{position:relative;flex:none;width:96px;height:96px;margin-bottom:24px}
-.art{width:96px;height:96px;border-radius:12px;overflow:hidden}
-.art svg,.thumb svg{width:100%;height:100%}
+.lbp{white-space:nowrap;font-variant-numeric:tabular-nums}
+.media{position:relative;flex:none;width:104px;height:120px;margin-bottom:24px}
+.art{width:104px;height:120px;border-radius:52px 52px 16px 16px;overflow:hidden;display:flex;align-items:flex-end;box-shadow:inset 0 0 0 1.5px rgba(35,25,15,.12)}
+.art svg{width:92px;height:92px;margin:0 auto 24px}
 .ctl{position:absolute;left:50%;bottom:-24px;transform:translateX(-50%)}
-.add{display:flex;align-items:center;justify-content:center;gap:4px;height:44px;min-width:88px;padding:0 16px;border-radius:999px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-2);color:var(--accent);font-size:16px;font-weight:500;white-space:nowrap}
-.add svg{width:16px;height:16px}
-.step{display:flex;align-items:center;height:44px;border-radius:999px;background:var(--accent);color:#fff}
-.step button{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:999px;color:#fff}
-.step button:active{background:var(--accent-dk)}
-.step button:focus-visible{outline-color:#fff;outline-offset:-4px}
+.add{display:flex;align-items:center;justify-content:center;gap:4px;height:44px;min-width:92px;padding:0 16px;border-radius:999px;background:var(--night);color:var(--cream);font-size:16px;font-weight:500;white-space:nowrap;box-shadow:0 0 0 3px var(--box)}
+.add svg{width:16px;height:16px;color:var(--syrup)}
+.add:active{background:var(--night-3)}
+.step{display:flex;align-items:center;height:44px;border-radius:999px;background:var(--night);color:var(--cream);box-shadow:0 0 0 3px var(--box)}
+.step button{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:999px;color:var(--syrup)}
+.step button:active{background:var(--night-3)}
+.step button:focus-visible{outline-color:var(--syrup);outline-offset:-4px}
 .step button svg{width:16px;height:16px}
 .step output{min-width:24px;text-align:center;font-size:16px;font-weight:600}
 
-/* Offer for shop owners */
-.pitch{margin-top:32px;padding:24px 16px;background:var(--surface);border:1px solid var(--line);border-radius:16px;scroll-margin-top:72px}
-.eyebrow{margin-bottom:4px;color:var(--gold-ink);font-size:12px;font-weight:600;line-height:1.4}
-.pitch h2{font-size:1.2rem;margin-bottom:16px}
-.pitch ul{list-style:none;margin:0 0 24px;padding:0;display:grid;gap:8px}
-.pitch li{display:flex;align-items:center;gap:8px}
-.pitch li svg{width:20px;height:20px;flex:none;color:var(--accent)}
-.primary{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:48px;padding:0 16px;border-radius:12px;background:var(--accent);color:#fff;font-size:16px;font-weight:500;text-decoration:none}
-.primary:active{background:var(--accent-dk)}
-.primary svg{width:20px;height:20px;flex:none}
-.primary.big{height:56px}
-.num{margin-top:12px;text-align:center;color:var(--muted);font-size:14px}
-.ltr{direction:ltr;unicode-bidi:isolate;display:inline-block}
-.madeup{margin-top:16px;text-align:center;color:var(--muted);font-size:12px;line-height:1.4}
+/* Offer for shop owners: a gold dome */
+.pitch{position:relative;margin-top:48px;padding:56px 20px 24px;background:var(--syrup) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'%3E%3Cg fill='none' stroke='%230C2E25' stroke-opacity='.08' stroke-width='1.2'%3E%3Crect x='13' y='13' width='18' height='18'/%3E%3Crect x='13' y='13' width='18' height='18' transform='rotate(45 22 22)'/%3E%3C/g%3E%3C/svg%3E");color:var(--night-3);border-radius:50% 50% 24px 24px/72px 72px 24px 24px;text-align:center;scroll-margin-top:72px}
+.eyebrow{margin-bottom:8px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase}
+.pitch h2{font-size:1.85rem;line-height:1.15;margin:0 auto 20px;max-width:16ch}
+.pitch ul{list-style:none;margin:0 auto 24px;padding:0;display:grid;gap:8px;max-width:300px;text-align:start}
+.pitch li{display:flex;align-items:center;gap:12px;font-weight:500}
+.pitch li svg{width:22px;height:22px;flex:none}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:52px;padding:0 16px;border-radius:14px;background:var(--night);color:var(--cream);font-size:16px;font-weight:600;text-decoration:none}
+.btn:active{background:var(--night-3)}
+.btn svg{width:20px;height:20px;flex:none}
+.btn.wa{height:56px;background:var(--wa);color:#fff;font-size:17px}
+.btn.wa:active{background:var(--wa-dk)}
+.num{margin-top:12px;font-size:14px;opacity:.8}
+.madeup{margin-top:20px;text-align:center;color:var(--cream-2);font-size:12px;line-height:1.4}
 
 /* Order bar */
-.bar{position:fixed;left:0;right:0;bottom:0;z-index:10;padding:12px 16px;padding-bottom:calc(12px + env(safe-area-inset-bottom));background:var(--surface);border-top:1px solid var(--line);transform:translateY(100%);visibility:hidden;transition:transform 150ms var(--exit),visibility 0s 150ms}
-.bar.show{transform:none;visibility:visible;transition:transform 200ms var(--enter),visibility 0s}
-.bar button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;max-width:568px;height:48px;margin:0 auto;padding:0 16px;border-radius:12px;background:var(--accent);color:#fff;font-size:16px;font-weight:500}
-.bar button:active{background:var(--accent-dk)}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:10;padding:0 12px;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));transform:translateY(120%);visibility:hidden;transition:transform 150ms var(--exit),visibility 0s 150ms}
+.bar.show{transform:none;visibility:visible;transition:transform 300ms var(--enter),visibility 0s}
+.bar button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;max-width:576px;height:60px;margin:0 auto;padding:0 12px 0 12px;border-radius:20px;background:var(--syrup);color:var(--night-3);font-size:16px;font-weight:600;box-shadow:0 12px 32px rgba(0,0,0,.4)}
+.bar button:focus-visible{outline-color:var(--cream)}
 .bar .l{display:flex;align-items:center;gap:12px}
-.count{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;padding:0 8px;border-radius:8px;background:rgba(255,255,255,.16);font-size:14px;font-weight:600}
-#barTotal{font-weight:600}
+.count{display:inline-flex;align-items:center;justify-content:center;min-width:36px;height:36px;padding:0 8px;border-radius:12px;background:var(--night);color:var(--syrup);font-size:15px;font-weight:600}
+#barTotal{padding-inline-end:8px;font-family:var(--display);font-size:1.35rem;font-weight:700}
 
-/* Order sheet: full screen on phones, bottom sheet from medium up */
+/* Order sheet: full screen on phones, bottom sheet from tablet up */
 .sheet{position:fixed;top:0;right:0;bottom:0;left:0;z-index:200;display:none}
 .sheet.open{display:block}
-.backdrop{position:absolute;top:0;right:0;bottom:0;left:0;background:rgba(22,18,12,.48);animation:fade 200ms var(--enter)}
-.panel{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;background:var(--bg);animation:fade 200ms var(--enter)}
+.backdrop{position:absolute;top:0;right:0;bottom:0;left:0;background:rgba(4,16,12,.6);animation:fade 200ms var(--enter)}
+.panel{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;background:var(--box);color:var(--ink);animation:fade 200ms var(--enter)}
 @keyframes up{from{transform:translateY(24px)}to{transform:none}}
 @keyframes fade{from{opacity:0}}
-.ph{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 4px 8px 16px;padding-top:calc(8px + env(safe-area-inset-top));background:var(--surface);border-bottom:1px solid var(--line)}
+.ph{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 4px 8px 16px;padding-top:calc(8px + env(safe-area-inset-top,0px));background:var(--night);color:var(--cream)}
 [dir=rtl] .ph{padding-left:4px;padding-right:16px}
-.ph h2{font-size:1.2rem}
-.x{position:relative;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:999px}
+.ph h2{font-size:1.5rem}
+.ph :focus-visible{outline-color:var(--syrup)}
+.x{position:relative;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:999px;color:var(--cream)}
 .x svg{width:20px;height:20px}
 .tip{position:absolute;top:100%;inset-inline-end:4px;z-index:1;margin-top:4px;padding:4px 8px;border-radius:8px;background:var(--ink);color:#fff;font-size:12px;line-height:1.4;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 150ms}
 .x:focus-visible .tip{opacity:1}
 @media (hover:hover){.x:hover .tip{opacity:1}}
 .pb{flex:1;overflow-y:auto;padding:16px;-webkit-overflow-scrolling:touch}
-.pf{padding:12px 16px;padding-bottom:calc(12px + env(safe-area-inset-bottom));background:var(--surface);border-top:1px solid var(--line)}
+.pf{padding:12px 16px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));background:var(--box);border-top:1px solid var(--line)}
 @media (min-width:768px){
-  .panel{top:auto;max-width:600px;max-height:88vh;max-height:88dvh;margin:0 auto;border:1px solid var(--line);border-bottom:0;border-radius:16px 16px 0 0;overflow:hidden;box-shadow:var(--shadow-3);animation-name:up}
+  .panel{top:auto;max-width:600px;max-height:88vh;max-height:88dvh;margin:0 auto;border-radius:24px 24px 0 0;overflow:hidden;animation-name:up}
   .ph{padding-top:8px}
 }
-.lines{padding:0 12px;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.lines{padding:0 12px;background:var(--paper);border:1px solid var(--line);border-radius:18px}
 .line{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
 .line:last-child{border-bottom:0}
-.thumb{width:48px;height:48px;flex:none;border-radius:8px;overflow:hidden}
+.thumb{width:48px;height:56px;flex:none;border-radius:24px 24px 8px 8px;overflow:hidden;display:flex;align-items:flex-end}
+.thumb svg{width:48px;height:48px}
 .line .n{flex:1;min-width:0}
-.line .n strong{display:block;font-weight:500;line-height:1.25}
-.line .n small{display:block;margin-top:4px;color:var(--muted);font-size:14px;line-height:1.4}
-.line .n b{display:block;margin-top:4px;font-weight:600}
-.totals{margin-top:12px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:16px}
-.tot-row{display:flex;justify-content:space-between;align-items:baseline;font-size:1.2rem;font-weight:600;line-height:1.25}
-.tot-sub{margin-top:4px;text-align:end;color:var(--muted);font-size:14px}
-.fee{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;line-height:1.4}
+.line .n strong{display:block;font-family:var(--display);font-size:17px;font-weight:700;line-height:1.2}
+.line .n small{display:block;margin-top:2px;color:var(--muted);font-size:14px;line-height:1.4}
+.line .n b{display:block;margin-top:2px;font-weight:600}
+.line .step{box-shadow:none}
+.totals{position:relative;margin-top:12px;padding:16px;background:var(--paper);border:1px dashed var(--field);border-radius:18px}
+.tot-row{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--display);font-size:1.5rem;font-weight:700;line-height:1.2}
+.tot-sub{margin-top:4px;text-align:end;color:var(--muted);font-size:14px;font-variant-numeric:tabular-nums}
+.fee{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);color:var(--muted);font-size:12px;line-height:1.4}
 .form{margin-top:24px}
 .field{margin:0 0 16px;padding:0;border:0;min-width:0}
-.field>label,.field>legend{display:block;margin-bottom:8px;padding:0;font-size:14px;font-weight:500}
-.field input,.field textarea{width:100%;min-height:48px;padding:12px;border:1px solid var(--field);border-radius:12px;background:var(--surface);font-size:16px;line-height:1.5}
+.field>label,.field>legend{display:block;margin-bottom:8px;padding:0;font-size:14px;font-weight:600}
+.field input,.field textarea{width:100%;min-height:48px;padding:12px;border:1px solid var(--field);border-radius:12px;background:var(--paper);font-size:16px;line-height:1.5}
 .field textarea{min-height:80px;resize:vertical}
-.field input:focus,.field textarea:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:var(--accent)}
+.field input:focus,.field textarea:focus{outline:2px solid var(--night);outline-offset:-1px;border-color:var(--night)}
 .err{display:none;margin-top:4px;color:var(--danger);font-size:14px}
 .field.bad input{border-color:var(--danger)}
 .field.bad input:focus{outline-color:var(--danger)}
@@ -189,15 +214,16 @@ section.cat{scroll-margin-top:56px;padding-top:24px}
 .seg-row{display:flex;gap:8px}
 .seg-opt{position:relative;flex:1}
 .seg-opt input{position:absolute;width:1px;height:1px;margin:0;opacity:0}
-.seg-face{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 12px;border:1px solid var(--field);border-radius:12px;background:var(--surface);cursor:pointer}
+.seg-face{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 12px;border:1px solid var(--field);border-radius:12px;background:var(--paper);cursor:pointer}
 .seg-face svg{width:20px;height:20px;flex:none}
-.seg-opt input:checked+.seg-face{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:500}
-.seg-opt input:focus-visible+.seg-face{outline:2px solid var(--accent);outline-offset:2px}
+.seg-opt input:checked+.seg-face{border-color:var(--night);box-shadow:inset 0 0 0 1px var(--night);background:var(--night);color:var(--cream);font-weight:600}
+.seg-opt input:checked+.seg-face svg{color:var(--syrup)}
+.seg-opt input:focus-visible+.seg-face{outline:2px solid var(--night);outline-offset:2px}
 .sendhint{margin-top:8px;text-align:center;color:var(--muted);font-size:12px;line-height:1.4}
 .empty{padding:48px 16px;text-align:center}
-.empty h3{font-size:1.2rem;margin-bottom:8px}
+.empty h3{font-size:1.5rem;margin-bottom:8px}
 .empty p{max-width:32ch;margin:0 auto 24px;color:var(--muted);font-size:14px;line-height:1.5}
-.empty .primary{display:inline-flex;width:auto}
+.empty .btn{display:inline-flex;width:auto}
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -212,36 +238,43 @@ section.cat{scroll-margin-top:56px;padding-top:24px}
   <div class="wrap strip-in"><p data-th="strip"></p><a href="#offer" data-jump="offer" data-t="stripLink"></a></div>
 </div>
 
-<header id="top">
-  <div class="wrap shop">
-    <div class="shop-row">
-      <div class="logo" aria-hidden="true">
-        <svg viewBox="0 0 48 48"><rect x="11" y="11" width="26" height="26" rx="3" fill="#F3C97A"/><rect x="11" y="11" width="26" height="26" rx="3" fill="#F3C97A" transform="rotate(45 24 24)"/><circle cx="24" cy="24" r="7" fill="#16382B"/><circle cx="24" cy="24" r="3" fill="#F3C97A"/></svg>
-      </div>
-      <div class="shop-txt">
-        <h1 data-t="shop"></h1>
-        <p class="tag" data-t="tagline"></p>
-      </div>
+<header class="hero" id="top">
+  <div class="wrap hero-in">
+    <div class="hero-top">
+      <svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><rect x="11" y="11" width="26" height="26" rx="3" fill="currentColor"/><rect x="11" y="11" width="26" height="26" rx="3" fill="currentColor" transform="rotate(45 24 24)"/><circle cx="24" cy="24" r="7" fill="#123D30"/><circle cx="24" cy="24" r="3" fill="currentColor"/></svg>
+      <span class="city" data-t="city"></span>
       <button class="lang" id="lang" type="button"></button>
     </div>
+    <div class="hero-main">
+      <div class="hero-txt">
+        <h1><span data-t="shop1"></span> <span class="two" data-t="shop2"></span></h1>
+        <span class="alt" id="altName"></span>
+      </div>
+      <div class="arch" id="arch" aria-hidden="true"></div>
+    </div>
+    <p class="sub" data-t="tagline"></p>
     <p class="meta">
       <span class="mi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span data-t="hours"></span></span>
       <span class="mi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.5" fill="currentColor"/></svg><span data-t="service"></span></span>
     </p>
-    <div class="rate">
-      <span class="rate-lbl" id="rateLbl" data-t="rateLbl"></span>
-      <div class="rate-box" id="rateBox">
-        <button class="rate-view" id="rateBtn" type="button"><span id="rateTxt"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
-        <form class="rate-edit" id="rateForm" novalidate>
-          <span data-t="ratePre"></span>
-          <input id="rateInput" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" maxlength="12" aria-labelledby="rateLbl" aria-describedby="rateErr">
-          <span data-t="rateUnit"></span>
-        </form>
-        <p class="rate-err" id="rateErr" role="alert" hidden data-t="rateErr"></p>
-      </div>
+  </div>
+  <div class="arcade" aria-hidden="true"></div>
+</header>
+
+<div class="wrap">
+  <div class="rate">
+    <span class="rate-lbl"><b id="rateLbl" data-t="rateLbl"></b><span data-t="rateHint"></span></span>
+    <div class="rate-box" id="rateBox">
+      <button class="rate-view" id="rateBtn" type="button"><span id="rateTxt"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+      <form class="rate-edit" id="rateForm" novalidate>
+        <span data-t="ratePre"></span>
+        <input id="rateInput" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" maxlength="12" aria-labelledby="rateLbl" aria-describedby="rateErr">
+        <span data-t="rateUnit"></span>
+      </form>
+      <p class="rate-err" id="rateErr" role="alert" hidden data-t="rateErr"></p>
     </div>
   </div>
-</header>
+</div>
 
 <nav class="cats" id="catsNav" aria-label="Menu sections"><div class="wrap" id="cats"></div></nav>
 
@@ -252,12 +285,12 @@ section.cat{scroll-margin-top:56px;padding-top:24px}
     <p class="eyebrow" data-t="eyebrow"></p>
     <h2 data-t="pitchTitle"></h2>
     <ul>
-      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-t="p1"></span></li>
-      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-t="p2"></span></li>
-      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-t="p3"></span></li>
-      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-t="p4"></span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#0C2E25"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#E6B25A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-t="p1"></span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#0C2E25"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#E6B25A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-t="p2"></span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#0C2E25"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#E6B25A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-t="p3"></span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#0C2E25"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#E6B25A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-t="p4"></span></li>
     </ul>
-    <a class="primary" id="pitchLink" href="https://wa.me/96179134480"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 10.5h7M8.5 13.5h4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span data-t="pitchBtn"></span></a>
+    <a class="btn" id="pitchLink" href="https://wa.me/96179134480"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 10.5h7M8.5 13.5h4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span data-t="pitchBtn"></span></a>
     <p class="num"><span data-t="pitchName"></span> · <span class="ltr">+961 79 134 480</span></p>
   </section>
   <p class="madeup" data-t="madeUp"></p>
@@ -278,7 +311,7 @@ section.cat{scroll-margin-top:56px;padding-top:24px}
       <div id="emptyBox" class="empty" hidden>
         <h3 data-t="emptyTitle"></h3>
         <p data-t="empty"></p>
-        <button class="primary" type="button" data-act="close" data-t="browse"></button>
+        <button class="btn" type="button" data-act="close" data-t="browse"></button>
       </div>
       <div id="orderForm">
         <div class="lines" id="lines"></div>
@@ -313,7 +346,7 @@ section.cat{scroll-margin-top:56px;padding-top:24px}
       </div>
     </div>
     <div class="pf" id="sheetFoot">
-      <button class="primary big" type="button" id="sendBtn">
+      <button class="btn wa" type="button" id="sendBtn">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 10.5h7M8.5 13.5h4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         <span data-t="send"></span>
       </button>
@@ -332,9 +365,10 @@ section.cat{scroll-margin-top:56px;padding-top:24px}
   var T = {
     ar: {
       strip: '<b>قائمة تجريبية</b> · جرّب اعمل طلب', stripLink: 'شوف العرض',
-      lang: 'English', shop: 'حلويات ديمو', tagline: 'حلويات عربية · طرابلس',
+      city: 'طرابلس · لبنان', lang: 'English', shop1: 'حلويات', shop2: 'ديمو', alt: 'Demo Sweets',
+      tagline: 'كنافة ومعمول وقشطة، من مدينة الحلويات.',
       hours: 'كل يوم 9ص – 11م', service: 'استلام وتوصيل',
-      rateLbl: 'سعر الصرف', rateEdit: 'غيّر سعر الصرف', ratePre: '1$ =', rateUnit: 'ل.ل',
+      rateLbl: 'سعر الصرف اليوم', rateHint: 'كل الأسعار بالليرة بتمشي معه', rateEdit: 'غيّر سعر الصرف', ratePre: '1$ =', rateUnit: 'ل.ل',
       rateErr: 'اكتب سعر بين 1,000 و10,000,000 ل.ل.',
       hot: 'الأكثر طلباً', add: 'أضف', view: 'شوف الطلب', yourOrder: 'طلبك',
       emptyTitle: 'بعد ما في شي بطلبك', empty: 'زيد حلويات من القائمة، وبتطلع هون جاهزة تبعتها على واتساب.', browse: 'تصفّح القائمة',
@@ -355,9 +389,10 @@ section.cat{scroll-margin-top:56px;padding-top:24px}
     },
     en: {
       strip: '<b>Demo menu</b> · Try placing an order', stripLink: 'See the offer',
-      lang: 'عربي', shop: 'Demo Sweets', tagline: 'Arabic sweets · Tripoli',
+      city: 'Tripoli · Lebanon', lang: 'عربي', shop1: 'Demo', shop2: 'Sweets', alt: 'حلويات ديمو',
+      tagline: 'Knefeh, maamoul and ashta from the city of sweets.',
       hours: 'Daily 9am – 11pm', service: 'Pickup & delivery',
-      rateLbl: 'Exchange rate', rateEdit: 'Change exchange rate', ratePre: '$1 =', rateUnit: 'LBP',
+      rateLbl: "Today's rate", rateHint: 'Every LBP price follows it', rateEdit: 'Change exchange rate', ratePre: '$1 =', rateUnit: 'LBP',
       rateErr: 'Enter a rate from 1,000 to 10,000,000 LBP.',
       hot: 'Best seller', add: 'Add', view: 'View order', yourOrder: 'Your order',
       emptyTitle: 'Your order is empty', empty: "Add sweets from the menu and they'll show up here, ready to send on WhatsApp.", browse: 'Browse the menu',
@@ -426,6 +461,17 @@ section.cat{scroll-margin-top:56px;padding-top:24px}
     star: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z" fill="currentColor"/></svg>'
   };
 
+  // The hero's arched window, shaped like the Mamluk arches of old Tripoli, with a plate of knefeh in it.
+  var ARCH_PATH = 'M10 200V88C10 52 38 24 80 12c42 12 70 40 70 76v112z';
+  document.getElementById('arch').innerHTML = '<svg viewBox="0 0 160 200">' +
+    '<defs><clipPath id="archClip"><path d="' + ARCH_PATH + '"/></clipPath>' +
+    '<pattern id="archStars" width="30" height="30" patternUnits="userSpaceOnUse"><g fill="none" stroke="#C8933A" stroke-opacity=".28" stroke-width="1"><rect x="9" y="9" width="12" height="12"/><rect x="9" y="9" width="12" height="12" transform="rotate(45 15 15)"/></g></pattern></defs>' +
+    '<path d="' + ARCH_PATH + '" fill="#F6E1BF"/>' +
+    '<g clip-path="url(#archClip)"><rect width="160" height="200" fill="url(#archStars)"/><g transform="translate(-6 70) scale(1.78)">' + ART.knefeh + '</g></g>' +
+    '<path d="' + ARCH_PATH + '" fill="none" stroke="#E6B25A" stroke-width="3"/>' +
+    '<path d="M2 200V86C2 46 34 14 80 2c46 12 78 44 78 84v114" fill="none" stroke="#E6B25A" stroke-opacity=".5" stroke-width="1.5"/>' +
+    '</svg>';
+
   var ITEMS = {};
   CATS.forEach(function (c) { c.items.forEach(function (it) { ITEMS[it.id] = it; }); });
 
@@ -455,6 +501,7 @@ section.cat{scroll-margin-top:56px;padding-top:24px}
   function saveDraft() { save('ds_form', { name: nameEl.value, addr: addrEl.value, notes: notesEl.value, type: orderType }); }
 
   function L(k) { return T[lang][k]; }
+  function other() { return lang === 'ar' ? 'en' : 'ar'; }
   function group(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
   function usd(x) {
     var s = (Math.round(x * 100) / 100).toFixed(2).replace(/\.00$/, '');
@@ -468,8 +515,7 @@ section.cat{scroll-margin-top:56px;padding-top:24px}
     if (lang === 'en') return n + (n === 1 ? ' item' : ' items');
     return n === 1 ? 'صنف واحد' : n === 2 ? 'صنفين' : n <= 10 ? n + ' أصناف' : n + ' صنف';
   }
-  // Cropped a little so the drawing sits above the Add button.
-  function artSVG(it) { return '<svg viewBox="4 8 88 88" aria-hidden="true">' + ART[it.art] + '</svg>'; }
+  function artSVG(it) { return '<svg viewBox="0 2 96 96" aria-hidden="true">' + ART[it.art] + '</svg>'; }
   function qty(id) { return cart[id] || 0; }
   function totals() {
     var n = 0, t = 0;
@@ -486,9 +532,11 @@ section.cat{scroll-margin-top:56px;padding-top:24px}
   }
 
   function renderMenu() {
+    var o = other();
     catsEl.innerHTML = CATS.map(function (c) { return '<a class="tab" data-cat="' + c.id + '" data-jump="cat-' + c.id + '" href="#cat-' + c.id + '">' + c[lang] + '</a>'; }).join('');
     menuEl.innerHTML = CATS.map(function (c) {
-      return '<section class="cat" id="cat-' + c.id + '"><div class="cat-h"><h2>' + c[lang] + '</h2><span>' + countLabel(c.items.length) + '</span></div><div class="list">' +
+      return '<section class="cat" id="cat-' + c.id + '"><div class="cat-h"><h2>' + c[lang] + '</h2><span class="orn sign-' + o + '" lang="' + o + '" aria-hidden="true">' + c[o] + '</span></div>' +
+        '<p class="cat-n">' + countLabel(c.items.length) + '</p><div class="list">' +
         c.items.map(function (it) {
           return '<article class="item" data-id="' + it.id + '"><div class="info">' +
             (it.hot ? '<span class="hot">' + ICON.star + L('hot') + '</span>' : '') +
@@ -503,7 +551,7 @@ section.cat{scroll-margin-top:56px;padding-top:24px}
     watchSections();
   }
 
-  // Underline the tab for the section on screen.
+  // Highlight the tab for the section on screen.
   var observer = null;
   function setActive(id) {
     var on = null;
@@ -522,7 +570,7 @@ section.cat{scroll-margin-top:56px;padding-top:24px}
     if (observer) observer.disconnect();
     observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) { if (en.isIntersecting) setActive(en.target.id.slice(4)); });
-    }, { rootMargin: '-64px 0px -65% 0px' });
+    }, { rootMargin: '-72px 0px -65% 0px' });
     Array.prototype.forEach.call(menuEl.querySelectorAll('section.cat'), function (s) { observer.observe(s); });
   }
 
@@ -558,9 +606,13 @@ section.cat{scroll-margin-top:56px;padding-top:24px}
     Array.prototype.forEach.call(document.querySelectorAll('[data-th]'), function (el) { el.innerHTML = L(el.getAttribute('data-th')); });
     Array.prototype.forEach.call(document.querySelectorAll('[data-tp]'), function (el) { el.placeholder = L(el.getAttribute('data-tp')); });
     Array.prototype.forEach.call(document.querySelectorAll('[data-ta]'), function (el) { el.setAttribute('aria-label', L(el.getAttribute('data-ta'))); });
+    var alt = $('altName');
+    alt.textContent = L('alt');
+    alt.setAttribute('lang', other());
+    alt.className = 'alt sign-' + other();
     var lb = $('lang');
     lb.textContent = L('lang');
-    lb.setAttribute('lang', lang === 'ar' ? 'en' : 'ar');
+    lb.setAttribute('lang', other());
     $('pitchLink').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(L('pitchMsg'));
     renderRate();
   }
@@ -624,6 +676,7 @@ section.cat{scroll-margin-top:56px;padding-top:24px}
   var BEHIND = ['strip', 'top', 'catsNav', 'menu', 'foot', 'bar'];
   function setInert(on) {
     BEHIND.forEach(function (id) { var el = $(id); el.inert = on; if (on) el.setAttribute('aria-hidden', 'true'); else el.removeAttribute('aria-hidden'); });
+    var rateWrap = rateBox.closest('.wrap'); rateWrap.inert = on;
   }
   function openCart(from, push) {
     if (openId) return;
@@ -742,7 +795,7 @@ section.cat{scroll-margin-top:56px;padding-top:24px}
   });
   $('openCart').addEventListener('click', function () { openCart($('openCart')); });
   $('sendBtn').addEventListener('click', send);
-  $('lang').addEventListener('click', function () { lang = lang === 'ar' ? 'en' : 'ar'; save('ds_lang', lang); renderAll(); });
+  $('lang').addEventListener('click', function () { lang = other(); save('ds_lang', lang); renderAll(); });
 
   setType(orderType);
   renderAll();
